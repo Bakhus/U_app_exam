@@ -12,14 +12,3 @@ from (
       and table2.city_name in ('Qarth','Meereen')
      )
 group by city_name;
-
-
-
-SELECT sellerid, state, sum(qtysold*pricepaid) sales,
-percentile_cont(0.6) within group (order by sum(qtysold*pricepaid::decimal(14,2) ) desc) over(),
-percentile_disc(0.6) within group (order by sum(qtysold*pricepaid::decimal(14,2) ) desc) over()
-from sales s, users u
-where s.sellerid = u.userid and state = 'WA' and sellerid < 1000
-group by sellerid, state;
-
-over(partition by sellerid) as median from winsales;
